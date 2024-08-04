@@ -1,0 +1,28 @@
+apiVersion: platform.opencloud.io/v1
+kind: Environment
+metadata:
+  labels:
+    app.kubernetes.io/name: my-experimental-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: environment-sample
+spec:
+  computeService:
+    numServers: 3
+    servers:
+    - cpu: 4
+      memory:
+        value: 8192
+        unit: MiB
+    - cpu: 8
+      memory:
+        value: 16
+        unit: GiB
+    - cpu: 2
+      memory:
+        value: 4096
+        unit: MiB
+  storageService:
+    storageType: SSD
+    capacity:
+      value: 500
+      unit: GiB

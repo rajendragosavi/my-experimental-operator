@@ -1,0 +1,51 @@
+apiVersion: v1.example.com/v1
+kind: Environment
+metadata:
+  name: example-environment
+spec:
+  computeService:
+    numServers: 3
+    servers:
+    - cpu: 4
+      memory:
+        value: 8192
+        unit: MiB
+    - cpu: 8
+      memory:
+        value: 16
+        unit: GiB
+    - cpu: 2
+      memory:
+        value: 4096
+        unit: MiB
+  storageService:
+    storageType: SSD
+    capacity:
+      value: 500
+      unit: GiB
+status:
+  currentNumServers: 3
+  availableCPU: 14
+  availableMemory:
+    value: 28672
+    unit: MiB
+  storageUtilization:
+    value: 200
+    unit: GiB
+  conditions:
+  - type: Ready
+    status: "True"
+    lastTransitionTime: "2024-08-03T12:34:56Z"
+    reason: "AllResourcesProvisioned"
+    message: "All compute and storage resources are provisioned and ready."
+  - type: Provisioning
+    status: "False"
+    lastTransitionTime: "2024-08-03T12:34:56Z"
+    reason: "ProvisioningCompleted"
+    message: "Provisioning of resources is complete."
+  - type: Degraded
+    status: "False"
+    lastTransitionTime: "2024-08-03T12:34:56Z"
+    reason: "AllResourcesOperational"
+    message: "All resources are operational."
+  lastUpdateTime: "2024-08-03T12:34:56Z"

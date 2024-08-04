@@ -1,0 +1,176 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.15.0
+  name: environments.platform.opencloud.io
+spec:
+  group: platform.opencloud.io
+  names:
+    kind: Environment
+    listKind: EnvironmentList
+    plural: environments
+    singular: environment
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: Environment is the Schema for the environments API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: EnvironmentSpec defines the desired state of Environment
+            properties:
+              computeService:
+                description: ComputeService represents a service that manages compute
+                  resources
+                properties:
+                  numServers:
+                    type: integer
+                  servers:
+                    items:
+                      description: Server represents a server with CPU and memory
+                        specifications
+                      properties:
+                        cpu:
+                          description: CPUUnit represents the number of CPU cores
+                          type: integer
+                        memory:
+                          description: MemoryUnit represents a memory size with units
+                            MiB or GiB
+                          properties:
+                            unit:
+                              type: string
+                            value:
+                              type: integer
+                          required:
+                          - unit
+                          - value
+                          type: object
+                      required:
+                      - cpu
+                      - memory
+                      type: object
+                    type: array
+                required:
+                - numServers
+                - servers
+                type: object
+              storageService:
+                description: StorageService represents a service that manages storage
+                  resources
+                properties:
+                  capacity:
+                    description: StorageUnit represents a storage size with units
+                      MiB or GiB
+                    properties:
+                      unit:
+                        type: string
+                      value:
+                        type: integer
+                    required:
+                    - unit
+                    - value
+                    type: object
+                  storageType:
+                    description: StorageType represents different types of storage
+                      (e.g., SSD, HDD)
+                    type: string
+                required:
+                - capacity
+                - storageType
+                type: object
+            required:
+            - computeService
+            - storageService
+            type: object
+          status:
+            description: EnvironmentStatus defines the observed state of Environment
+            properties:
+              availableCPU:
+                description: CPUUnit represents the number of CPU cores
+                type: integer
+              availableMemory:
+                description: MemoryUnit represents a memory size with units MiB or
+                  GiB
+                properties:
+                  unit:
+                    type: string
+                  value:
+                    type: integer
+                required:
+                - unit
+                - value
+                type: object
+              conditions:
+                items:
+                  description: Condition represents the state of the resource at a
+                    certain point.
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      type: string
+                    reason:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              currentNumServers:
+                type: integer
+              lastUpdateTime:
+                format: date-time
+                type: string
+              storageUtilization:
+                description: StorageUnit represents a storage size with units MiB
+                  or GiB
+                properties:
+                  unit:
+                    type: string
+                  value:
+                    type: integer
+                required:
+                - unit
+                - value
+                type: object
+            required:
+            - availableCPU
+            - availableMemory
+            - conditions
+            - currentNumServers
+            - lastUpdateTime
+            - storageUtilization
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
