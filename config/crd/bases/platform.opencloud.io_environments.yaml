@@ -65,9 +65,12 @@ spec:
                           - unit
                           - value
                           type: object
+                        serverType:
+                          type: string
                       required:
                       - cpu
                       - memory
+                      - serverType
                       type: object
                     type: array
                 required:
@@ -93,6 +96,9 @@ spec:
                   storageType:
                     description: StorageType represents different types of storage
                       (e.g., SSD, HDD)
+                    enum:
+                    - SSD
+                    - HDD
                     type: string
                 required:
                 - capacity

@@ -40,8 +40,9 @@ type MemoryUnit struct {
 
 // Server represents a server with CPU and memory specifications
 type Server struct {
-	CPU    CPUUnit    `json:"cpu"`
-	Memory MemoryUnit `json:"memory"`
+	ServerType string     `json:"serverType"`
+	CPU        CPUUnit    `json:"cpu"`
+	Memory     MemoryUnit `json:"memory"`
 }
 
 // ComputeService represents a service that manages compute resources
@@ -61,8 +62,9 @@ type StorageUnit struct {
 type StorageType string
 
 const (
-	SSD StorageType = "SSD"
-	HDD StorageType = "HDD"
+	SSD      StorageType = "SSD"
+	HDD      StorageType = "HDD"
+	T2Micros ServerType  = "t2.micro"
 )
 
 // StorageService represents a service that manages storage resources
