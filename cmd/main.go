@@ -126,6 +126,11 @@ func main() {
 	if err = (&controller.EnvironmentReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
+		Logger: mgr.GetLogger().WithValues(
+			"controller", "environment",
+			"controllerGroup", "platform.opencloud.io",
+			"controllerKind", "Environment",
+		),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Environment")
 		os.Exit(1)

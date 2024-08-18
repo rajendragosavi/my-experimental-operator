@@ -1,23 +1,24 @@
 apiVersion: platform.opencloud.io/v1
 kind: Environment
 metadata:
-  labels:
-    app.kubernetes.io/name: my-experimental-operator
-    app.kubernetes.io/managed-by: kustomize
-  name: environment-sample
+  name: demo-environment
+  namespace: default
 spec:
   computeService:
     numServers: 3
     servers:
     - cpu: 4
+      serverType: t2.micro
       memory:
         value: 8192
         unit: MiB
     - cpu: 8
+      serverType: t3.micro
       memory:
         value: 16
         unit: GiB
     - cpu: 2
+      serverType: t2.micro
       memory:
         value: 4096
         unit: MiB

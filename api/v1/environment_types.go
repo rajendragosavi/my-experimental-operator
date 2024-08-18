@@ -60,6 +60,7 @@ type StorageUnit struct {
 // StorageType represents different types of storage (e.g., SSD, HDD)
 // +kubebuilder:validation:Enum=SSD;HDD
 type StorageType string
+type ServerType string
 
 const (
 	SSD      StorageType = "SSD"
@@ -83,22 +84,21 @@ Last Update Time: Track the last time the status was updated.
 
 // EnvironmentStatus defines the observed state of Environment
 type EnvironmentStatus struct {
-	CurrentNumServers  int         `json:"currentNumServers"`
-	AvailableCPU       CPUUnit     `json:"availableCPU"`
-	AvailableMemory    MemoryUnit  `json:"availableMemory"`
-	StorageUtilization StorageUnit `json:"storageUtilization"`
-	Conditions         []Condition `json:"conditions"`
-	LastUpdateTime     metav1.Time `json:"lastUpdateTime"`
+	CurrentNumServers  int                `json:"currentNumServers"`
+	AvailableCPU       CPUUnit            `json:"availableCPU"`
+	AvailableMemory    MemoryUnit         `json:"availableMemory"`
+	StorageUtilization StorageUnit        `json:"storageUtilization"`
+	Conditions         []metav1.Condition `json:"conditions"`
 }
 
-// Condition represents the state of the resource at a certain point.
-type Condition struct {
-	Type               string      `json:"type"`
-	Status             string      `json:"status"`
-	LastTransitionTime metav1.Time `json:"lastTransitionTime"`
-	Reason             string      `json:"reason"`
-	Message            string      `json:"message"`
-}
+// // Condition represents the state of the resource at a certain point.
+// type Condition struct {
+// 	Type               string      `json:"type"`
+// 	Status             string      `json:"status"`
+// 	LastTransitionTime metav1.Time `json:"lastTransitionTime"`
+// 	Reason             string      `json:"reason"`
+// 	Message            string      `json:"message"`
+// }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
