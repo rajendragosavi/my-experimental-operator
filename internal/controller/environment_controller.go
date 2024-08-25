@@ -56,7 +56,7 @@ type EnvironmentReconciler struct {
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.18.2/pkg/reconcile
 func (e *EnvironmentReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	log := e.Logger
-	log.V(1).Info("Reconcile started")
+	log.WithValues("environment_name ", req.Name, "environment_namespace", req.Namespace).V(1).Info("Reconcile started")
 	//fetch environment object
 	var environment v1.Environment
 

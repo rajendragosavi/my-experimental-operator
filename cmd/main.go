@@ -127,9 +127,9 @@ func main() {
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 		Logger: mgr.GetLogger().WithValues(
-			"controller", "environment",
-			"controllerGroup", "platform.opencloud.io",
-			"controllerKind", "Environment",
+			"controller_name", "environment",
+			"controller_group", "platform.opencloud.io",
+			"controller_kind", "Environment",
 		),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Environment")
